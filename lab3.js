@@ -12,49 +12,14 @@ const SelectMethod = () => {
   return ResultProgram(method);
 }
 
-const risePopulation = (condition) => {
-  switch (condition) {
-    case "micro":
-      let array = [];
-      let countMicro = Math.floor(Math.random() * 25);
-      for (let i = 0; i < countMicro; i++) {
-        array.push(Math.floor(Math.random() * 25));
-      }
-      return array;
-    case "macro":
-      let tmp = [];
-      let countMacro = Math.floor(Math.random() * 5);
-      let countMacro2 = Math.floor(Math.random() * 25);
-      for (let i = 0; i < countMacro; i++) {
-        for (let j = 0; j < countMacro2; j++) {
-          tmp.push(Math.floor(Math.random() * 25));
-        }
-      }
-      return tmp;
-    case "meta":
-      let mettmp = [];
-      let countMeta =  Math.floor(Math.random() * 5);
-      let countMeta2 = Math.floor(Math.random() * 5);
-      let countMeta3 = Math.floor(Math.random() * 25);
-      for (i = 0; i < countMeta; i++) {
-        for (j = 0; j < countMeta2; j++) {
-          for (k = 0; k < countMeta3; k++) {
-            mettmp.push(Math.floor(Math.random() * 25));
-          }
-        }
-      }
-      console.log(mettmp)
-      return mettmp;
-  }
-}
-
 const ResultProgram = (method) => {
   switch (method){
     case 1:
-     return CreatePopulation()
+      return CreatePopulation()
     case 2:
-      console.log(method)
-      break
+      return RisePopulation()
+    case 3:
+      return SynthesisСhromosomeSpecies()
     default:
       console.log('Проверьте введенные данные')
   }
@@ -62,7 +27,7 @@ const ResultProgram = (method) => {
 
 const CreatePopulation = () => {
   switch (
-    Number(readline.question('Выберите метод\n' +
+    Number(readline.question('Создание начальной популяции. Выберите метод:\n' +
       '1. "Одеяло" \n' +
       '2. "Дробовик" \n' +
       '3. "Фокусировка" \n' +
@@ -92,9 +57,93 @@ const CreatePopulation = () => {
     default:
       console.log('Проверьте введенные данные')
   }
-
 }
 
+const RisePopulation = () => {
+  switch (Number(readline.question('Развитие популяций:\n' +
+    '1. "micro" \n' +
+    '2. "macro" \n' +
+    '3. "meta" \n' +
+    'Введите число: '))
+    ) {
+    case 1:
+      let array = [];
+      let countMicro = Math.floor(Math.random() * 25);
+      for (let i = 0; i < countMicro; i++) {
+        array.push(Math.floor(Math.random() * 25));
+      }
+      return {
+        selectedMethod: "Развитие популяций. Метод 'micro'",
+        result: array
+      };
+    case 2:
+      let tmp = [];
+      let countMacro = Math.floor(Math.random() * 5);
+      let countMacro2 = Math.floor(Math.random() * 25);
+      for (let i = 0; i < countMacro; i++) {
+        for (let j = 0; j < countMacro2; j++) {
+          tmp.push(Math.floor(Math.random() * 25));
+        }
+      }
+      return {
+        selectedMethod: "Развитие популяций. Метод 'micro'",
+        result: tmp
+      };
+    case 3:
+      let mettmp = [];
+      let countMeta =  Math.floor(Math.random() * 5);
+      let countMeta2 = Math.floor(Math.random() * 5);
+      let countMeta3 = Math.floor(Math.random() * 25);
+      for (i = 0; i < countMeta; i++) {
+        for (j = 0; j < countMeta2; j++) {
+          for (k = 0; k < countMeta3; k++) {
+            mettmp.push(Math.floor(Math.random() * 25));
+          }
+        }
+      }
+      return {
+        selectedMethod: "Развитие популяций. Метод 'micro'",
+        result: mettmp
+      };
+  }
+}
+
+const SynthesisСhromosomeSpecies = () => {
+  const number = Number(readline.question('Задайте количество элементов:'))
+  const binarn = [];
+  const numberGomo = [];
+  const numberGetero = [];
+  const lenArr = (Math.floor(Math.random() * number))
+
+  for (let item = 0; item < lenArr; item++) {
+    binarn.push(Math.floor(Math.random()));
+  }
+
+  for (let item = 0; item < lenArr; item++) {
+    numberGomo.push(Math.floor(Math.random()));
+  }
+
+  for (let item = 0; item < lenArr; item++) {
+    numberGetero.push(item + 1);
+  }
+  const randomNumber = () => {
+    return Math.floor(Math.random() * 20)
+  }
+  const vector = [];
+  for (let item = 0; item < number; item++) {
+    vector.push([randomNumber(), randomNumber(), randomNumber()]);
+  }
+
+  return {
+    selectedMethod: "Синтез различных видов хромосом'",
+    result: `
+      Числовая бинарная хромосома: ${binarn} \n
+      Числовая гомологичная хромосома: ${numberGomo} \n
+      Числовая негомологичная хромосома: ${numberGetero} \n
+      Векторная хромосома: [ ${vector.map(item=>`<` + item + '>')} ] \n
+    `
+  }
+}
 
 //Одеяло
 const blanket = () => {
@@ -121,7 +170,6 @@ const shotgun = () => {
   }
   return array;
 }
-
 
 //Фокусировка
 const focusing = () => {
@@ -156,12 +204,11 @@ const chunk = () => {
   for (let i = 0; i < 100; i++) {
     array.push(Math.floor(Math.random() * 100));
   }
-  dia = (readline.question('Введите границы диапазона: ')).split(" ")
+  let dia = (readline.question('Введите границы диапазона: ')).split(" ")
   console.log(array.slice(dia[0],dia[1]))
   return array.slice(dia[0],dia[1]);
 }
 
-
 const { selectedMethod, result } = SelectMethod();
-console.log(`Выбранные опции: ${selectedMethod}`)
-console.log(  `Результат: ${result}`)
+console.log(`\nВыбранные опции: ${selectedMethod}`)
+console.log(`Результат: ${result}`)
