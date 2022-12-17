@@ -12,6 +12,42 @@ const SelectMethod = () => {
   return ResultProgram(method);
 }
 
+const risePopulation = (condition) => {
+  switch (condition) {
+    case "micro":
+      let array = [];
+      let countMicro = Math.floor(Math.random() * 25);
+      for (let i = 0; i < countMicro; i++) {
+        array.push(Math.floor(Math.random() * 25));
+      }
+      return array;
+    case "macro":
+      let tmp = [];
+      let countMacro = Math.floor(Math.random() * 5);
+      let countMacro2 = Math.floor(Math.random() * 25);
+      for (let i = 0; i < countMacro; i++) {
+        for (let j = 0; j < countMacro2; j++) {
+          tmp.push(Math.floor(Math.random() * 25));
+        }
+      }
+      return tmp;
+    case "meta":
+      let mettmp = [];
+      let countMeta =  Math.floor(Math.random() * 5);
+      let countMeta2 = Math.floor(Math.random() * 5);
+      let countMeta3 = Math.floor(Math.random() * 25);
+      for (i = 0; i < countMeta; i++) {
+        for (j = 0; j < countMeta2; j++) {
+          for (k = 0; k < countMeta3; k++) {
+            mettmp.push(Math.floor(Math.random() * 25));
+          }
+        }
+      }
+      console.log(mettmp)
+      return mettmp;
+  }
+}
+
 const ResultProgram = (method) => {
   switch (method){
     case 1:
@@ -73,7 +109,8 @@ const shotgun = () => {
     arrayRandomNumber.push(Math.floor(Math.random() * 100))
   }
   const array = []
-  for (let item = 0; item < (Math.floor(Math.random() * arrayRandomNumber.length)); item++) {
+  const count = (Math.floor(Math.random() * arrayRandomNumber.length));
+  for (let item = 0; item < count; item++) {
     array.push(arrayRandomNumber[(Math.floor(Math.random() * arrayRandomNumber.length))])
   }
   return array;
