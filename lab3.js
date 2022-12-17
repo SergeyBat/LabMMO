@@ -5,7 +5,7 @@ const SelectMethod = () => {
   const method = Number(readline.question(
     'Выберите функцию: \n' +
     '1. Создание начальной популяции \n' +
-    '2. Развитие популяций \n ' +
+    '2. Развитие популяций \n' +
     '3. Синтез различных видов хромосом \n' +
     'Введите число: '
   ))
@@ -28,8 +28,8 @@ const CreatePopulation = () => {
   switch (
     Number(readline.question('Выберите метод\n' +
       '1. "Одеяло" \n' +
-      '2. "Дробовик" \n ' +
-      '3. "Фокусировка"\n' +
+      '2. "Дробовик" \n' +
+      '3. "Фокусировка" \n' +
       'Введите число: '))
     ){
     case 1:
@@ -45,7 +45,7 @@ const CreatePopulation = () => {
     case 3:
       return {
         selectedMethod: "Создания начальной популяции. Метод 'Фокусировка'",
-        result: blanket()
+        result: focusing()
       }
     default:
       console.log('Проверьте введенные данные')
@@ -81,7 +81,31 @@ const shotgun = () => {
 
 
 //Фокусировка
+const focusing = () => {
+  const number = Number(readline.question('Задайте количество элементов:'))
+  const sizePopulation = Number(readline.question('Задайте размер популяции:'))
 
+  const focusingPoint = sizePopulation * 0.25 + (Math.floor(Math.random() * (sizePopulation * 0.25)))
+  const displacementAmount = focusingPoint / (2 * number)
+
+  const array = []
+
+  for (let item = 0; item < number/2; item++) {
+    const displacementFunc = 2 * item + displacementAmount;
+    if (focusingPoint + displacementFunc < sizePopulation) {
+      array.push(focusingPoint + displacementFunc)
+    }
+  }
+
+  for (let item = number/2; item < number; item++) {
+    const displacementFunc = 2 * (item - number / 2 + 1) + displacementAmount;
+    if (focusingPoint - displacementFunc >= 0) {
+      array.push(focusingPoint - displacementFunc)
+    }
+  }
+
+  return array;
+}
 
 
 const { selectedMethod, result } = SelectMethod();
