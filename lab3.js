@@ -66,6 +66,7 @@ const CreatePopulation = () => {
       '1. "Одеяло" \n' +
       '2. "Дробовик" \n' +
       '3. "Фокусировка" \n' +
+      '3. "Комбинированный" \n' +
       'Введите число: '))
     ){
     case 1:
@@ -82,6 +83,11 @@ const CreatePopulation = () => {
       return {
         selectedMethod: "Создания начальной популяции. Метод 'Фокусировка'",
         result: focusing()
+      }
+    case 4:
+      return {
+        selectedMethod: "Создания начальной популяции. Метод 'Комбинированный'",
+        result: chunk()
       }
     default:
       console.log('Проверьте введенные данные')
@@ -142,6 +148,17 @@ const focusing = () => {
   }
 
   return array;
+}
+
+const chunk = () => {
+  console.log("Комбинированный прицнип выбора конкретного участка хромосомы");
+  let array = [];
+  for (let i = 0; i < 100; i++) {
+    array.push(Math.floor(Math.random() * 100));
+  }
+  dia = (readline.question('Введите границы диапазона: ')).split(" ")
+  console.log(array.slice(dia[0],dia[1]))
+  return array.slice(dia[0],dia[1]);
 }
 
 
