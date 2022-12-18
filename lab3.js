@@ -31,7 +31,7 @@ const CreatePopulation = () => {
       '1. "Одеяло" \n' +
       '2. "Дробовик" \n' +
       '3. "Фокусировка" \n' +
-      '3. "Комбинированный" \n' +
+      '4. "Комбинированный" \n' +
       'Введите число: '))
     ){
     case 1:
@@ -59,55 +59,129 @@ const CreatePopulation = () => {
   }
 }
 
-const RisePopulation = () => {
-  switch (Number(readline.question('Развитие популяций:\n' +
+const DevelopmentPopulation = () => {
+  const method = Number(readline.question('Развитие популяций:\n' +
     '1. "micro" \n' +
     '2. "macro" \n' +
     '3. "meta" \n' +
     'Введите число: '))
-    ) {
-    case 1:
-      let array = [];
-      let countMicro = Math.floor(Math.random() * 25);
-      for (let i = 0; i < countMicro; i++) {
-        array.push(Math.floor(Math.random() * 25));
+  const risePopulationArray = RisePopulation(method)
+  switch ( method ) {
+    case 3:
+      const tempArr = [];
+      const mx = [];
+      console.log(`\nПопуляции:`)
+      for (let item = 0; item < risePopulationArray; item++ ) {
+        console.log(`\nПопуляция ${item}:`)
+        for (let population = 0; population < risePopulationArray; population++ ) {
+          console.log(`Хромосома: ${population}, ${risePopulationArray[item][population]}`)
+        }
+        tempArr.push(lengthArr(risePopulationArray[item]))
+        mx.push(risePopulationArray[item].length)
       }
+      const maxEl = Math.max(mx)
+      const index = mx.find(item => item === maxEl )
+      console.log(`\nПопуляция: ${index}`)
+      console.log(`\nХромосома: ${tempArr[index][1]}:`)
+      console.log(`\nЭволюционный поиск в хромосомах: ${tempArr[index][0]}`)
       return {
-        selectedMethod: "Развитие популяций. Метод 'micro'",
-        result: array
+        selectedMethod: "Развитие популяций. Метод 'meta'",
+        result: NewPopulation(method, tempArr[index][0])
       };
     case 2:
-      let tmp = [];
-      let countMacro = Math.floor(Math.random() * 5);
-      let countMacro2 = Math.floor(Math.random() * 25);
-      for (let i = 0; i < countMacro; i++) {
-        for (let j = 0; j < countMacro2; j++) {
-          tmp.push(Math.floor(Math.random() * 25));
-        }
+      console.log(`\nПопуляция 1:`)
+      for (let item = 0; item < risePopulationArray.length; item++ ) {
+        console.log(`\nХромосома: ${item}: ${risePopulationArray[item]} `)
       }
+      const tmp = lengthArr(risePopulationArray)
+      console.log(`\nХромосома: ${tmp[1]}:`)
+      console.log(`\nЭволюционный поиск в хромосомах: ${tmp[0]}`)
       return {
-        selectedMethod: "Развитие популяций. Метод 'micro'",
-        result: tmp
+        selectedMethod: "Развитие популяций. Метод 'macro'",
+        result: NewPopulation(method, tmp[0])
       };
-    case 3:
-      let mettmp = [];
-      let countMeta =  Math.floor(Math.random() * 5);
-      let countMeta2 = Math.floor(Math.random() * 5);
-      let countMeta3 = Math.floor(Math.random() * 25);
-      for (i = 0; i < countMeta; i++) {
-        for (j = 0; j < countMeta2; j++) {
-          for (k = 0; k < countMeta3; k++) {
-            mettmp.push(Math.floor(Math.random() * 25));
-          }
-        }
-      }
+    case 1:
+      console.log(`\nХромосома/индивид: ${risePopulationArray}:`)
+      console.log(`\nЭволюционный поиск в хромосомах: ${Math.max(risePopulationArray)}`)
       return {
         selectedMethod: "Развитие популяций. Метод 'micro'",
-        result: mettmp
+        result: NewPopulation(method, Math.max(risePopulationArray))
       };
   }
 }
 
+const RisePopulation = (method) => {
+  switch ( method ) {
+    case 1:
+      let array = [];
+      let countMicro = Math.floor(Math.random() * 50);
+      for (let i = 0; i < countMicro; i++) {
+        array.push(Math.floor(Math.random() * 50));
+      }
+      return array;
+    case 2:
+      let tmp = [];
+      let countMacro = Math.floor(Math.random() * 5);
+      let countMacro2 = Math.floor(Math.random() * 50);
+      for (let i = 0; i < countMacro; i++) {
+        for (let j = 0; j < countMacro2; j++) {
+          tmp.push(Math.floor(Math.random() * 50));
+        }
+      }
+      return tmp;
+    case 3:
+      let mettmp = [];
+      let countMeta =  Math.floor(Math.random() * 5);
+      let countMeta2 = Math.floor(Math.random() * 5);
+      let countMeta3 = Math.floor(Math.random() * 50);
+      for (let i = 0; i < countMeta; i++) {
+        for (let j = 0; j < countMeta2; j++) {
+          for (let k = 0; k < countMeta3; k++) {
+            mettmp.push(Math.floor(Math.random() * 50));
+          }
+        }
+      }
+      return mettmp;
+  }
+}
+
+const NewPopulation = (method, mx) => {
+  console.log('\n Итоговая популяция: ')
+  switch ( method ) {
+    case 3:
+      let array = [];
+      let countMicro = Math.floor(Math.random() * 50);
+      for (let i = 0; i < 5; i++) {
+        for (let j = 0; j < 5; j++) {
+          array.push(Math.floor(Math.random() * 50));
+        }
+      }
+      return array;
+    case 2:
+      let tmp = [];
+      let countMacro = Math.floor(Math.random() * 5);
+      let countMacro2 = Math.floor(Math.random() * 50);
+      for (let i = 0; i < countMacro; i++) {
+        for (let j = 0; j < countMacro2; j++) {
+          tmp.push(Math.floor(Math.random() * 50));
+        }
+      }
+      return tmp;
+    case 1:
+      let mettmp = [];
+      let countMeta =  Math.floor(Math.random() * 5);
+      let countMeta2 = Math.floor(Math.random() * 5);
+      let countMeta3 = Math.floor(Math.random() * 50);
+      for (let i = 0; i < countMeta; i++) {
+        for (let j = 0; j < countMeta2; j++) {
+          for (let k = 0; k < countMeta3; k++) {
+            mettmp.push(Math.floor(Math.random() * 50));
+          }
+        }
+      }
+      return mettmp;
+  }
+}
 const SynthesisСhromosomeSpecies = () => {
   const number = Number(readline.question('Задайте количество элементов:'))
   const binarn = [];
@@ -199,16 +273,25 @@ const focusing = () => {
 }
 
 const chunk = () => {
-  console.log("Комбинированный прицнип выбора конкретного участка хромосомы");
   let array = [];
   for (let i = 0; i < 100; i++) {
     array.push(Math.floor(Math.random() * 100));
   }
-  let dia = (readline.question('Введите границы диапазона: ')).split(" ")
-  console.log(array.slice(dia[0],dia[1]))
+  let dia = (readline.question('Введите границы выбранного диапазона (например: 0 10): ')).split(" ")
   return array.slice(dia[0],dia[1]);
 }
 
+const lengthArr = (ls) => {
+  let mx = 0;
+  let index = 0;
+  for (let item = 0; item < ls.length; item++) {
+    if (ls[item].length > mx) {
+      mx = ls[item].length
+      index = item
+    }
+  }
+  return [Math.max(ls[index]), index]
+}
 const { selectedMethod, result } = SelectMethod();
 console.log(`\nВыбранные опции: ${selectedMethod}`)
 console.log(`Результат: ${result}`)
