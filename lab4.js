@@ -5,7 +5,7 @@ const sizePopulation = Number(
   readline.question('Задайте размер популяции: ')
 )
 const sizeChr = Number(
-  readline.question('Задайте размер популяции: ')
+  readline.question('Задайте количество генов: ')
 )
 
 class Population {
@@ -121,7 +121,7 @@ const methodElite = (population) => {
   const kof_chr = []
   for (let i = 0; i < population.length; i++) {
     kof_chr.push(population[i].reduce((accumulator, currentValue) => {
-      return accumulator + (currentValue*2+2)
+      return accumulator + (currentValue*5+3)
     }, 0))
   }
   const tmp = [...kof_chr]
